@@ -1,8 +1,23 @@
-<h1>All Lists</h1>
-<ul>
-  <% @lists.each do |list| %>
-    <li>
-        <p><%= link_to list.name, "/lists/#{list.id}" %></p>
-    </li>
-  <% end %>
-</ul>
+<div class="list-banner">
+  <div class="container">
+    <h1>Movie Lists</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="d-flex justify-content-between mb-3">
+    <h1>HX Movie</h1>
+    <%= link_to "Add New Listing", lists_new_path, class:"btn btn-flat" %>
+  </div>
+    <div class="cards pb-3">
+      <% @lists.each do |list| %>
+        <a href=<%= "/lists/#{list.id}"%> >
+          <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path list.photo.key, height: 300, width:400, crop: :fill %>')">
+            <div><%= list.name %></div>
+          </div>
+        </a>
+      <% end %>
+    </div>
+</div>
+
+<%# <%= link_to list.name, "/lists/#{list.id}" %>

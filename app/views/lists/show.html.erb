@@ -1,3 +1,33 @@
-<h1>List</h1>
-<p><%= @list.id %></p>
-<p><%= @list.name %></p>
+<div class="list-banner-single">
+  <div class="container">
+    <h1><%= @list.name %><</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="d-flex justify-content-between mb-3">
+    <h1>HX Movie</h1>
+    <%= link_to "Add New Movie", new_movie_path, class:"btn btn-flat" %>
+  </div>
+    <div class="movie-cards pb-3">
+      <% @list.movies.each do |movie| %>
+       <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+          <div class="movie-card-category">
+            <%= image_tag movie.poster_url, class: 'movie-img' %>
+            <div class="movie-title-rating d-flex">
+            <p><strong><%= movie.title %></strong></p>
+            <p><%= movie.rating %></p>
+            <p><span class="fa fa-star checked"></span></p>
+            </div>
+            <p><%= movie.overview %></p>
+            <div class="movie-comment-delete d-flex justify-content-between ">
+              <div><%= bookmark.comment %></div>
+             <%= link_to "Delete",
+                bookmark_path(bookmark),
+                data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+              %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+</div>
